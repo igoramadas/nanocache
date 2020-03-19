@@ -153,6 +153,10 @@ describe("Bitecache Tests", function() {
         }
     })
 
+    it("Get stats for cache", function() {
+        bitecache.stats("test-complex")
+    })
+
     it("Clear all", function() {
         bitecache.clear()
     })
@@ -181,6 +185,11 @@ describe("Bitecache Tests", function() {
         try {
             bitecache.clear("invalid")
             done("Calling clear on invalid collection should throw an error")
+        } catch (ex) {}
+
+        try {
+            bitecache.stats("invalid")
+            done("Calling stats on invalid collection should throw an error")
         } catch (ex) {}
 
         try {

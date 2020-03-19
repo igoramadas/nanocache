@@ -234,6 +234,29 @@ class Bitecache {
         }
     }
 
+    /**
+     * Get individual stats for the specified cache collection.
+     * @param collection Optional cache collection name.
+     */
+    stats = (collection?: string) => {
+        try {
+            const store: CacheCollection = this.store[collection]
+            if (!store) {
+                throw new Error(`Invalid collection: ${collection}`)
+            }
+
+            return {
+                size: store.size,
+                memSize: this.memSizeOf(collection),
+                misses: store.misses,
+                expiresIn: store.expiresIn
+            }
+        } catch (ex) {
+            logger.error("Bitecache.stats", collection, ex)
+            throw ex
+        }
+    }
+
     // HELPERS
     // --------------------------------------------------------------------------
 

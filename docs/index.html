@@ -65,7 +65,49 @@
 				<a href="#bitecache" id="bitecache" style="color: inherit; text-decoration: none;">
 					<h1>Bitecache</h1>
 				</a>
-				<p>A tiny, in-memory cache manager that won&#39;t bite you.</p>
+				<p><a href="https://npmjs.com/package/bitecache"><img src="https://img.shields.io/npm/v/bitecache.svg" alt="Version"></a>
+					<a href="https://travis-ci.org/igoramadas/bitecache"><img src="https://img.shields.io/travis/igoramadas/bitecache.svg" alt="Build Status"></a>
+				<a href="https://coveralls.io/github/igoramadas/bitecache?branch=master"><img src="https://img.shields.io/coveralls/github/igoramadas/bitecache.svg" alt="Coverage Status"></a></p>
+				<p>A tiny, in-memory cache manager that won&#39;t bite you :-)</p>
+				<a href="#basic-usage" id="basic-usage" style="color: inherit; text-decoration: none;">
+					<h2>Basic usage</h2>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> cache = <span class="hljs-built_in">require</span>(<span class="hljs-string">"bitecache"</span>)
+
+<span class="hljs-comment">// Create a "users" cache collection with 20 seconds expiration,</span>
+<span class="hljs-comment">// and a "products" with expiration in 10 minutes.</span>
+cache.setup(<span class="hljs-string">"users"</span>, <span class="hljs-number">20</span>)
+cache.setup(<span class="hljs-string">"products"</span>, <span class="hljs-number">600</span>)
+
+<span class="hljs-comment">// Add a new user with cache key "jdoe".</span>
+<span class="hljs-keyword">const</span> user = {<span class="hljs-attr">name</span>: <span class="hljs-string">"John"</span>, <span class="hljs-attr">surname</span>: <span class="hljs-string">"Doe"</span>}
+cache.set(<span class="hljs-string">"users"</span>, <span class="hljs-string">"jdoe"</span> user)
+
+<span class="hljs-comment">// Get John Doe from cache.</span>
+<span class="hljs-keyword">const</span> cachedUser = cache.get(<span class="hljs-string">"users"</span>, <span class="hljs-string">"jdoe"</span>)
+
+<span class="hljs-comment">// A user that does not exist, will return null.</span>
+<span class="hljs-keyword">const</span> invalidUser = cache.get(<span class="hljs-string">"users"</span>, <span class="hljs-string">"invalid"</span>)
+
+<span class="hljs-comment">// Remove user from cache.</span>
+cache.del(<span class="hljs-string">"users"</span>, <span class="hljs-string">"jdoe"</span>)
+
+<span class="hljs-comment">// Individual cache items can also have their own expiresIn, here we add</span>
+<span class="hljs-comment">// a product that expires in 30 seconds instead of the 10 mminutes default.</span>
+cache.set(<span class="hljs-string">"products"</span>, <span class="hljs-string">"myproduct"</span>, {<span class="hljs-attr">title</span>: <span class="hljs-string">"My Product"</span>}, <span class="hljs-number">30</span>)
+
+<span class="hljs-comment">// Log cache's total size, estimation of memory size, and cache misses.</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Total size"</span>, cache.totalSize)
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Total memory size"</span>, cache.totalMemSize)
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Total misses"</span>, cache.totalMisses)
+
+<span class="hljs-comment">// Log individual cache collection stats.</span>
+<span class="hljs-built_in">console</span>.dir(cache.stats(<span class="hljs-string">"users"</span>))
+
+<span class="hljs-comment">// Clear the users cache or all cache collections.</span>
+cache.clear(<span class="hljs-string">"users"</span>)
+cache.clear()
+</code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
