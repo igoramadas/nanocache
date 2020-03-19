@@ -8,13 +8,15 @@
         "moduleResolution": "node",
         "esModuleInterop": true,
         "noUnusedParameters": true,
-        "noUnusedLocals": true
+        "noUnusedLocals": true,
+        "declaration": true
     },
     "typedocOptions": {
         "excludeExternals": true,
         "excludePrivate": true,
         "mode": "modules",
         "name": "Bitecache",
-        "out": "docs"
+        "out": "docs",
+        "gaID": "UA-9331973-4"
     }
 }
