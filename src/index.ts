@@ -96,7 +96,7 @@ class Bitecache {
      * @param value The actual object.
      * @param expiresIn Optional if object should expire on a specific interval.
      */
-    set = (collection: string, key: string, value: any, expiresIn?: number): void => {
+    set = (collection: string, key: string | number | Date, value: any, expiresIn?: number): void => {
         try {
             const store: CacheCollection = this.store[collection]
             if (!store) {
@@ -107,6 +107,9 @@ class Bitecache {
             if (expiresIn < 0) {
                 expiresIn = store.expiresIn
             }
+
+            // Force key as string.
+            key = key.toString()
 
             const now = new Date().getTime()
             const expires = expiresIn ? now + expiresIn * 1000 : now + store.expiresIn * 1000
@@ -124,12 +127,15 @@ class Bitecache {
      * @param collection Cache collection name.
      * @param key The object's unique key.
      */
-    get = (collection: string, key: string): any => {
+    get = (collection: string, key: string | number | Date): any => {
         try {
             const store: CacheCollection = this.store[collection]
             if (!store) {
                 throw new Error(`Invalid collection: ${collection}`)
             }
+
+            // Force key as string.
+            key = key.toString()
 
             const now = new Date().getTime()
             const item = store.items[key]
@@ -157,12 +163,15 @@ class Bitecache {
      * @param collection Cache collection name.
      * @param key The object's unique key.
      */
-    del = (collection: string, key: string): boolean => {
+    del = (collection: string, key: string | number | Date): boolean => {
         try {
             const store: CacheCollection = this.store[collection]
             if (!store) {
                 throw new Error(`Invalid collection: ${collection}`)
             }
+
+            // Force key as string.
+            key = key.toString()
 
             if (!(key in store.items)) {
                 store.misses++
