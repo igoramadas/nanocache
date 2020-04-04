@@ -1,9 +1,10 @@
 // Bitecache
 
+import {CacheCollection, CacheItem} from "./types"
 import logger = require("anyhow")
 
 /**
- * Cache wrapper.
+ * Bitecache wrapper.
  */
 class Bitecache {
     private constructor() {}
@@ -315,32 +316,6 @@ class Bitecache {
             throw ex
         }
     }
-}
-
-/**
- * A collection of cached items.
- */
-interface CacheCollection {
-    /** Cached items. */
-    items: {}
-    /** Default expires in (seconds). */
-    expiresIn: number
-    /** Timer to expire old items.  */
-    expireTimer: any
-    /** Collection size (count). */
-    size: number
-    /** Cache misses (count). */
-    misses: number
-}
-
-/**
- * A cached item.
- */
-interface CacheItem {
-    /** Cached data. */
-    data: any
-    /** Expire timestamp (epoch). */
-    expires: number
 }
 
 // Exports...
