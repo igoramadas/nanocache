@@ -56,6 +56,8 @@ class Bitecache {
 
     /**
      * Setup a cache object with the specified name.
+     * @param collection The collection name.
+     * @param expiresIn Default expiration in seconds.
      */
     setup = (collection: string, expiresIn: number): void => {
         if (expiresIn < 1) {
