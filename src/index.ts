@@ -64,9 +64,9 @@ class Bitecache {
         // Replace current or create new collection?
         if (this.store[collection]) {
             clearInterval(this.store[collection].clearTimer)
-            logger.info("Bitecache.setup", collection, expiresIn, "Collection already exists, will overwrite it")
+            logger.info("Bitecache.setup", collection, `Expires in ${expiresIn}s`, "Collection already exists, will overwrite it")
         } else {
-            logger.info("Bitecache.setup", collection, expiresIn)
+            logger.info("Bitecache.setup", collection, `Expires in ${expiresIn}s`)
         }
 
         // Cleanup helper.
