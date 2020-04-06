@@ -192,6 +192,32 @@ class Bitecache {
     }
 
     /**
+     * Merge (shallow copy) data to an existing object on the specified cache collection.
+     * @param collection Cache collection name.
+     * @param key The object's unique key.
+     * @param dataToMerge The data to be merged.
+     */
+    merge = (collection: string, key: string | number | Date, dataToMerge: any): void => {
+        try {
+            const store: CacheCollection = this.store[collection]
+            if (!store) {
+                throw new Error(`Invalid collection: ${collection}`)
+            }
+
+            // Force key as string.
+            key = key.toString()
+
+            // Get existing object.
+            if (store.items[key] && typeof store.items[key].data == "object") {
+                Object.assign(store.items[key].data, dataToMerge)
+            }
+        } catch (ex) {
+            logger.error("Bitecache.merge", collection, key, ex)
+            throw ex
+        }
+    }
+
+    /**
      * Remove old items from the specified cache collection.
      * @param collection Cache collection name.
      */

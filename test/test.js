@@ -8,22 +8,22 @@ let it = mocha.it
 
 chai.should()
 
-describe("Bitecache Tests", function() {
+describe("Bitecache Tests", function () {
     let logger = require("anyhow")
     logger.setup("none")
 
     let bitecache = require("../lib/index.js")
 
-    it("Setup a collection with invalid expiresIn", function() {
+    it("Setup a collection with invalid expiresIn", function () {
         bitecache.setup("test", -5)
     })
 
-    it("Setup other collections", function() {
+    it("Setup other collections", function () {
         bitecache.setup("test-another", 1)
         bitecache.setup("test-complex", 60)
     })
 
-    it("Wait for expiration of items on test-another", function(done) {
+    it("Wait for expiration of items on test-another", function (done) {
         this.timeout(3000)
         bitecache.set("test-another", "expire1", 1)
         bitecache.set("test-another", "expire2", 2)
@@ -39,11 +39,11 @@ describe("Bitecache Tests", function() {
         setTimeout(check, 2000)
     })
 
-    it("Setup same test collection again with expiresIn 1", function() {
+    it("Setup same test collection again with expiresIn 1", function () {
         bitecache.setup("test", 1)
     })
 
-    it("Try getting invalid cache items, cache misses should be 3", function(done) {
+    it("Try getting invalid cache items, cache misses should be 3", function (done) {
         bitecache.get("test", "notexist1")
         bitecache.get("test", "notexist2")
         bitecache.get("test", "notexist3")
@@ -57,15 +57,15 @@ describe("Bitecache Tests", function() {
         }
     })
 
-    it("Add an item to the cache", function() {
+    it("Add an item to the cache", function () {
         bitecache.set("test", "a", "First", 1)
     })
 
-    it("Add an item to the cache with custom expiresIn 10", function() {
+    it("Add an item to the cache with custom expiresIn 10", function () {
         bitecache.set("test", "b", "Second", 10)
     })
 
-    it("Get second added item", function(done) {
+    it("Get second added item", function (done) {
         const second = bitecache.get("test", "b")
 
         if (second == "Second") {
@@ -75,7 +75,7 @@ describe("Bitecache Tests", function() {
         }
     })
 
-    it("First item should have expired", function(done) {
+    it("First item should have expired", function (done) {
         const checkFirst = () => {
             const first = bitecache.get("test", "a")
 
@@ -89,13 +89,13 @@ describe("Bitecache Tests", function() {
         setTimeout(checkFirst, 1100)
     })
 
-    it("Add 10 itens to another collection", function() {
+    it("Add 10 itens to another collection", function () {
         for (let i = 0; i < 10; i++) {
             bitecache.set("test-another", i.toString(), i * 10)
         }
     })
 
-    it("Current size should be 11 (1 from test, 10 from test-another)", function(done) {
+    it("Current size should be 11 (1 from test, 10 from test-another)", function (done) {
         const size = bitecache.totalSize
 
         if (size == 11) {
@@ -105,7 +105,7 @@ describe("Bitecache Tests", function() {
         }
     })
 
-    it("Delete item from cache", function(done) {
+    it("Delete item from cache", function (done) {
         if (bitecache.del("test", "b")) {
             done()
         } else {
@@ -113,7 +113,7 @@ describe("Bitecache Tests", function() {
         }
     })
 
-    it("Deleting invalid item should return false, and current size 10", function(done) {
+    it("Deleting invalid item should return false, and current size 10", function (done) {
         const size = bitecache.totalSize
 
         if (bitecache.del("test", "b")) {
@@ -125,7 +125,7 @@ describe("Bitecache Tests", function() {
         }
     })
 
-    it("Clear test-another, size should now be 0", function(done) {
+    it("Clear test-another, size should now be 0", function (done) {
         bitecache.clear("test-another")
 
         const size = bitecache.totalSize
@@ -137,7 +137,7 @@ describe("Bitecache Tests", function() {
         }
     })
 
-    it("Get size used by cache", function(done) {
+    it("Get size used by cache", function (done) {
         bitecache.set("test-complex", "boolean", true)
         bitecache.set("test-complex", "string", "a")
         bitecache.set("test-complex", "number", 123)
@@ -153,15 +153,29 @@ describe("Bitecache Tests", function() {
         }
     })
 
-    it("Get stats for cache", function() {
+    it("Merge data to existing cache item", function (done) {
+        bitecache.set("test-complex", "to-merge", {a: "a", b: "a"})
+        bitecache.merge("test-complex", "to-merge", {b: "b"})
+
+        bitecache.set("test-complex", "to-merge-fail", 1)
+        bitecache.merge("test-complex", "to-merge-fail", 2)
+
+        if (bitecache.get("test-complex", "to-merge").b == "a") {
+            done("Did not merge data")
+        } else {
+            done()
+        }
+    })
+
+    it("Get stats for cache", function () {
         bitecache.stats("test-complex")
     })
 
-    it("Clear all", function() {
+    it("Clear all", function () {
         bitecache.clear()
     })
 
-    it("Throw error when calling methods on invalid collection", function(done) {
+    it("Throw error when calling methods on invalid collection", function (done) {
         try {
             bitecache.set("invalid")
             done("Calling set on invalid collection should throw an error")
