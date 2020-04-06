@@ -192,6 +192,11 @@ describe("Bitecache Tests", function () {
         } catch (ex) {}
 
         try {
+            bitecache.merge("invalid")
+            done("Calling merge on invalid collection should throw an error")
+        } catch (ex) {}
+
+        try {
             bitecache.expire("invalid")
             done("Calling expire on invalid collection should throw an error")
         } catch (ex) {}
