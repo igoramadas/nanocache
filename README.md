@@ -24,6 +24,9 @@ cache.set("users", "jdoe" user)
 // Get John Doe from cache.
 const cachedUser = cache.get("users", "jdoe")
 
+// You can also merge data to existing cached objects.
+cache.merge("users", "jdoe", {surname: "New Doe"})
+
 // A user that does not exist, will return null.
 const invalidUser = cache.get("users", "invalid")
 

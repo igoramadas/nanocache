@@ -86,6 +86,9 @@ cache.set(<span class="hljs-string">"users"</span>, <span class="hljs-string">"j
 <span class="hljs-comment">// Get John Doe from cache.</span>
 <span class="hljs-keyword">const</span> cachedUser = cache.get(<span class="hljs-string">"users"</span>, <span class="hljs-string">"jdoe"</span>)
 
+<span class="hljs-comment">// You can also merge data to existing cached objects.</span>
+cache.merge(<span class="hljs-string">"users"</span>, <span class="hljs-string">"jdoe"</span>, {<span class="hljs-attr">surname</span>: <span class="hljs-string">"New Doe"</span>})
+
 <span class="hljs-comment">// A user that does not exist, will return null.</span>
 <span class="hljs-keyword">const</span> invalidUser = cache.get(<span class="hljs-string">"users"</span>, <span class="hljs-string">"invalid"</span>)
 

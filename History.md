@@ -2,7 +2,7 @@
 
 1.1.0
 =====
-* NEW! Method merge() to merge data to existing cache.
+* NEW! Method merge() to shallow merge data to existing cache.
 * Cache keys now also accept any data type.
 * Updated dependencies.
 
