@@ -267,7 +267,7 @@ class Bitecache {
                 }
             }
         } catch (ex) {
-            logger.error("Bitecache.expire", collection, ex)
+            logger.error("Bitecache.clear", collection, ex)
             throw ex
         }
     }
