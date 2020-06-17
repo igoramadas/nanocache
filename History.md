@@ -1,5 +1,10 @@
 # Changelog for Bitecache
 
+1.1.2
+=====
+* Make sure Anyhow's logging is set up.
+* Updated dependencies.
+
 1.1.1
 =====
 * Updated dependencies.

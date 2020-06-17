@@ -64,6 +64,11 @@ class Bitecache {
             expiresIn = 1
         }
 
+        // Make sure Anyhow was set up.
+        if (!logger.isReady) {
+            logger.setup()
+        }
+
         // Replace current or create new collection?
         if (this.store[collection]) {
             clearInterval(this.store[collection].clearTimer)
