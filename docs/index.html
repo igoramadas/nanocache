@@ -7,6 +7,7 @@
 	<meta name="description" content="Documentation for Bitecache">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
 </head>
 <body>
 <header>
@@ -38,8 +39,6 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -49,11 +48,6 @@
 	</div>
 	<div class="tsd-page-title">
 		<div class="container">
-			<ul class="tsd-breadcrumb">
-				<li>
-					<a href="globals.html">Globals</a>
-				</li>
-			</ul>
 			<h1>Bitecache</h1>
 		</div>
 	</div>
@@ -72,58 +66,59 @@
 				<a href="#basic-usage" id="basic-usage" style="color: inherit; text-decoration: none;">
 					<h2>Basic usage</h2>
 				</a>
-				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> cache = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;bitecache&quot;</span>)
+				<pre><code class="language-javascript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cache</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;bitecache&quot;</span><span style="color: #000000">)</span>
 
-<span class="hljs-comment">// Create a &quot;users&quot; cache collection with 20 seconds expiration,</span>
-<span class="hljs-comment">// and a &quot;products&quot; with expiration in 10 minutes.</span>
-cache.setup(<span class="hljs-string">&quot;users&quot;</span>, <span class="hljs-number">20</span>)
-cache.setup(<span class="hljs-string">&quot;products&quot;</span>, <span class="hljs-number">600</span>)
+<span style="color: #008000">// Create a &quot;users&quot; cache collection with 20 seconds expiration,</span>
+<span style="color: #008000">// and a &quot;products&quot; with expiration in 10 minutes.</span>
+<span style="color: #001080">cache</span><span style="color: #000000">.</span><span style="color: #795E26">setup</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;users&quot;</span><span style="color: #000000">, </span><span style="color: #098658">20</span><span style="color: #000000">)</span>
+<span style="color: #001080">cache</span><span style="color: #000000">.</span><span style="color: #795E26">setup</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;products&quot;</span><span style="color: #000000">, </span><span style="color: #098658">600</span><span style="color: #000000">)</span>
 
-<span class="hljs-comment">// Add a new user with cache key &quot;jdoe&quot;.</span>
-<span class="hljs-keyword">const</span> user = {<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;John&quot;</span>, <span class="hljs-attr">surname</span>: <span class="hljs-string">&quot;Doe&quot;</span>}
-cache.set(<span class="hljs-string">&quot;users&quot;</span>, <span class="hljs-string">&quot;jdoe&quot;</span> user)
+<span style="color: #008000">// Add a new user with cache key &quot;jdoe&quot;.</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">user</span><span style="color: #000000"> = {</span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;John&quot;</span><span style="color: #000000">, </span><span style="color: #001080">surname:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;Doe&quot;</span><span style="color: #000000">}</span>
+<span style="color: #001080">cache</span><span style="color: #000000">.</span><span style="color: #795E26">set</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;users&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;jdoe&quot;</span><span style="color: #000000"> </span><span style="color: #001080">user</span><span style="color: #000000">)</span>
 
-<span class="hljs-comment">// Get John Doe from cache.</span>
-<span class="hljs-keyword">const</span> cachedUser = cache.get(<span class="hljs-string">&quot;users&quot;</span>, <span class="hljs-string">&quot;jdoe&quot;</span>)
+<span style="color: #008000">// Get John Doe from cache.</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cachedUser</span><span style="color: #000000"> = </span><span style="color: #001080">cache</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;users&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;jdoe&quot;</span><span style="color: #000000">)</span>
 
-<span class="hljs-comment">// You can also merge data to existing cached objects.</span>
-cache.merge(<span class="hljs-string">&quot;users&quot;</span>, <span class="hljs-string">&quot;jdoe&quot;</span>, {<span class="hljs-attr">surname</span>: <span class="hljs-string">&quot;New Doe&quot;</span>})
+<span style="color: #008000">// You can also merge data to existing cached objects.</span>
+<span style="color: #001080">cache</span><span style="color: #000000">.</span><span style="color: #795E26">merge</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;users&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;jdoe&quot;</span><span style="color: #000000">, {</span><span style="color: #001080">surname:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;New Doe&quot;</span><span style="color: #000000">})</span>
 
-<span class="hljs-comment">// A user that does not exist, will return null.</span>
-<span class="hljs-keyword">const</span> invalidUser = cache.get(<span class="hljs-string">&quot;users&quot;</span>, <span class="hljs-string">&quot;invalid&quot;</span>)
+<span style="color: #008000">// A user that does not exist, will return null.</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">invalidUser</span><span style="color: #000000"> = </span><span style="color: #001080">cache</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;users&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;invalid&quot;</span><span style="color: #000000">)</span>
 
-<span class="hljs-comment">// Remove user from cache.</span>
-cache.del(<span class="hljs-string">&quot;users&quot;</span>, <span class="hljs-string">&quot;jdoe&quot;</span>)
+<span style="color: #008000">// Remove user from cache.</span>
+<span style="color: #001080">cache</span><span style="color: #000000">.</span><span style="color: #795E26">del</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;users&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;jdoe&quot;</span><span style="color: #000000">)</span>
 
-<span class="hljs-comment">// Individual cache items can also have their own expiresIn, here we add</span>
-<span class="hljs-comment">// a product that expires in 30 seconds instead of the 10 mminutes default.</span>
-cache.set(<span class="hljs-string">&quot;products&quot;</span>, <span class="hljs-string">&quot;myproduct&quot;</span>, {<span class="hljs-attr">title</span>: <span class="hljs-string">&quot;My Product&quot;</span>}, <span class="hljs-number">30</span>)
+<span style="color: #008000">// Individual cache items can also have their own expiresIn, here we add</span>
+<span style="color: #008000">// a product that expires in 30 seconds instead of the 10 mminutes default.</span>
+<span style="color: #001080">cache</span><span style="color: #000000">.</span><span style="color: #795E26">set</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;products&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;myproduct&quot;</span><span style="color: #000000">, {</span><span style="color: #001080">title:</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;My Product&quot;</span><span style="color: #000000">}, </span><span style="color: #098658">30</span><span style="color: #000000">)</span>
 
-<span class="hljs-comment">// Log cache&#x27;s total size, estimation of memory size, and cache misses.</span>
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Total size&quot;</span>, cache.totalSize)
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Total memory size&quot;</span>, cache.totalMemSize)
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Total misses&quot;</span>, cache.totalMisses)
+<span style="color: #008000">// Log cache&#039;s total size, estimation of memory size, and cache misses.</span>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Total size&quot;</span><span style="color: #000000">, </span><span style="color: #001080">cache</span><span style="color: #000000">.</span><span style="color: #001080">totalSize</span><span style="color: #000000">)</span>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Total memory size&quot;</span><span style="color: #000000">, </span><span style="color: #001080">cache</span><span style="color: #000000">.</span><span style="color: #001080">totalMemSize</span><span style="color: #000000">)</span>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Total misses&quot;</span><span style="color: #000000">, </span><span style="color: #001080">cache</span><span style="color: #000000">.</span><span style="color: #001080">totalMisses</span><span style="color: #000000">)</span>
 
-<span class="hljs-comment">// Log individual cache collection stats.</span>
-<span class="hljs-built_in">console</span>.dir(cache.stats(<span class="hljs-string">&quot;users&quot;</span>))
+<span style="color: #008000">// Log individual cache collection stats.</span>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">dir</span><span style="color: #000000">(</span><span style="color: #001080">cache</span><span style="color: #000000">.</span><span style="color: #795E26">stats</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;users&quot;</span><span style="color: #000000">))</span>
 
-<span class="hljs-comment">// Clear the users cache or all cache collections.</span>
-cache.clear(<span class="hljs-string">&quot;users&quot;</span>)
-cache.clear()
+<span style="color: #008000">// Clear the users cache or all cache collections.</span>
+<span style="color: #001080">cache</span><span style="color: #000000">.</span><span style="color: #795E26">clear</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;users&quot;</span><span style="color: #000000">)</span>
+<span style="color: #001080">cache</span><span style="color: #000000">.</span><span style="color: #795E26">clear</span><span style="color: #000000">()</span>
+
 </code></pre>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_index_.html">&quot;src/index&quot;</a>
+						<a href="modules/index.html">index</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_src_types_.html">&quot;src/types&quot;</a>
+						<a href="modules/types.html">types</a>
 					</li>
 				</ul>
 			</nav>
@@ -139,13 +134,7 @@ cache.clear()
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-			</ul>
-			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
 			</ul>
 		</div>
 	</div>
