@@ -1,5 +1,9 @@
 # Changelog for Bitecache
 
+1.1.8
+=====
+* Updated dependencies.
+
 1.1.7
 =====
 * Updated dependencies.
