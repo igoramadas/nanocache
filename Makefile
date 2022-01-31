@@ -36,7 +36,7 @@ clean:
 	rm -f package-lock.json
 
 update:
-	-ncu -u
+	-ncu -u --target minor
 	-npm install
 	$(TSC)
 
