@@ -25,3 +25,17 @@ export interface CacheItem {
     /** Expire timestamp (epoch). */
     expires: number
 }
+
+/**
+ * Cache collection stats.
+ */
+export interface CacheStats {
+    /** How many items cached. */
+    size: number
+    /** Approx. memory used. */
+    memSize: number
+    /** Total of cache misses. */
+    misses: number
+    /** Expires in. */
+    expiresIn: number
+}
