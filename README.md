@@ -49,4 +49,17 @@ console.dir(cache.stats("users"))
 cache.clear("users")
 cache.clear()
 
+// By default, hitting an invalid collection will throw an exception.
+try {
+    const invalidCollection = cache.get("oops", "some-id")
+} catch (ex) {
+    console.error(ex)
+}
+
+// You can disable the strict mode and it won't throw an exception,
+// but return undefined instead.
+cache.strict = false
+const invalidAgain = cache.get("oops", "some-id")
+cachet.set("oops", "another invalid")
+
 ```

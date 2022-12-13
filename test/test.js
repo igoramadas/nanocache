@@ -218,4 +218,58 @@ describe("Bitecache Tests", function () {
 
         done()
     })
+
+    it("Do not throw is strict is false", function (done) {
+        bitecache.strict = false
+
+        try {
+            bitecache.set("invalid")
+        } catch (ex) {
+            return done("Calling set on invalid collection should not throw an error")
+        }
+
+        try {
+            bitecache.get("invalid")
+        } catch (ex) {
+            return done("Calling set on invalid collection should not throw an error")
+        }
+
+        try {
+            bitecache.del("invalid")
+        } catch (ex) {
+            return done("Calling del on invalid collection should not throw an error")
+        }
+
+        try {
+            bitecache.merge("invalid")
+        } catch (ex) {
+            return done("Calling merge on invalid collection should not throw an error")
+        }
+
+        try {
+            bitecache.expire("invalid")
+        } catch (ex) {
+            return done("Calling expire on invalid collection should not throw an error")
+        }
+
+        try {
+            bitecache.clear("invalid")
+        } catch (ex) {
+            return done("Calling clear on invalid collection should not throw an error")
+        }
+
+        try {
+            bitecache.stats("invalid")
+        } catch (ex) {
+            return done("Calling stats on invalid collection should not throw an error")
+        }
+
+        try {
+            bitecache.memSizeOf("invalid")
+        } catch (ex) {
+            return done("Calling memSizeOf on invalid collection should not throw an error")
+        }
+
+        done()
+    })
 })
