@@ -1,6 +1,6 @@
 // Bitecache
 
-import {CacheCollection, CacheItem} from "./types"
+import {CacheCollection, CacheItem, CacheStats} from "./types"
 import logger = require("anyhow")
 
 /**
@@ -51,6 +51,12 @@ class Bitecache {
         return result
     }
 
+    /**
+     * If set to false, will not throw errors when trying to get
+     * or set data from invalid cache collections. Default is true.
+     */
+    strict: boolean = true
+
     // SETUP
     // --------------------------------------------------------------------------
 
@@ -60,8 +66,8 @@ class Bitecache {
      * @param expiresIn Default expiration in seconds.
      */
     setup = (collection: string, expiresIn: number): void => {
-        if (expiresIn < 1) {
-            expiresIn = 1
+        if (expiresIn < 0.1) {
+            expiresIn = 0.1
         }
 
         // Make sure Anyhow was set up.
@@ -108,7 +114,8 @@ class Bitecache {
         try {
             const store: CacheCollection = this.store[collection]
             if (!store) {
-                throw new Error(`Invalid collection: ${collection}`)
+                if (this.strict) throw new Error(`Invalid collection: ${collection}`)
+                else return
             }
 
             // Defaults to store's expireIn if the value is not valid.
@@ -139,7 +146,8 @@ class Bitecache {
         try {
             const store: CacheCollection = this.store[collection]
             if (!store) {
-                throw new Error(`Invalid collection: ${collection}`)
+                if (this.strict) throw new Error(`Invalid collection: ${collection}`)
+                else return
             }
 
             // Force key as string.
@@ -175,7 +183,8 @@ class Bitecache {
         try {
             const store: CacheCollection = this.store[collection]
             if (!store) {
-                throw new Error(`Invalid collection: ${collection}`)
+                if (this.strict) throw new Error(`Invalid collection: ${collection}`)
+                else return
             }
 
             // Force key as string.
@@ -206,7 +215,8 @@ class Bitecache {
         try {
             const store: CacheCollection = this.store[collection]
             if (!store) {
-                throw new Error(`Invalid collection: ${collection}`)
+                if (this.strict) throw new Error(`Invalid collection: ${collection}`)
+                else return
             }
 
             // Force key as string.
@@ -226,11 +236,12 @@ class Bitecache {
      * Remove old items from the specified cache collection.
      * @param collection Cache collection name.
      */
-    expire = (collection: string) => {
+    expire = (collection: string): void => {
         try {
             const store: CacheCollection = this.store[collection]
             if (!store) {
-                throw new Error(`Invalid collection: ${collection}`)
+                if (this.strict) throw new Error(`Invalid collection: ${collection}`)
+                else return
             }
 
             const storeItems = Object.entries(store.items)
@@ -254,13 +265,15 @@ class Bitecache {
      * Clear the cache.
      * @param collection Optional collection, if not specified will clear all collections.
      */
-    clear = (collection?: string) => {
+    clear = (collection?: string): void => {
         try {
             if (collection) {
                 const store: CacheCollection = this.store[collection]
                 if (!store) {
-                    throw new Error(`Invalid collection: ${collection}`)
+                    if (this.strict) throw new Error(`Invalid collection: ${collection}`)
+                    else return
                 }
+
                 store.items = {}
                 store.size = 0
                 store.misses = 0
@@ -281,11 +294,12 @@ class Bitecache {
      * Get individual stats for the specified cache collection.
      * @param collection Optional cache collection name.
      */
-    stats = (collection?: string) => {
+    stats = (collection?: string): CacheStats => {
         try {
             const store: CacheCollection = this.store[collection]
             if (!store) {
-                throw new Error(`Invalid collection: ${collection}`)
+                if (this.strict) throw new Error(`Invalid collection: ${collection}`)
+                else return
             }
 
             return {
@@ -311,7 +325,8 @@ class Bitecache {
         try {
             const store: CacheCollection = this.store[collection]
             if (!store) {
-                throw new Error(`Invalid collection: ${collection}`)
+                if (this.strict) throw new Error(`Invalid collection: ${collection}`)
+                else return
             }
 
             const objectList = []
