@@ -1,18 +1,13 @@
-// TEST: NANOCACHE
+// TEST: BITECACHE
 
-let chai = require("chai")
-let mocha = require("mocha")
-let before = mocha.before
-let describe = mocha.describe
-let it = mocha.it
-
-chai.should()
+import {describe, it} from "mocha"
+require("chai").should()
 
 describe("Bitecache Tests", function () {
     let logger = require("anyhow")
     logger.setup("none")
 
-    let bitecache = require("../lib/index.js")
+    let bitecache = require("../src/index")
 
     it("Setup a collection with invalid expiresIn", function () {
         bitecache.setup("test", -5)

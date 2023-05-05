@@ -1,5 +1,9 @@
 # Changelog for Bitecache
 
+1.3.1
+=====
+* Code refactoring.
+
 1.3.0
 =====
 * NEW! Option "strict" can be set to false to avoid throwing errors with invalid collections.

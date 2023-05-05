@@ -1,8 +1,8 @@
 # Bitecache
 
 [![Version](https://img.shields.io/npm/v/bitecache.svg)](https://npmjs.com/package/bitecache)
-[![Build Status](https://img.shields.io/travis/igoramadas/bitecache.svg)](https://travis-ci.org/igoramadas/bitecache)
-[![Coverage Status](https://img.shields.io/coveralls/github/igoramadas/bitecache.svg)](https://coveralls.io/github/igoramadas/bitecache?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/igoramadas/bitecache/badge.svg?branch=master)](https://coveralls.io/github/igoramadas/bitecache?branch=master)
+[![Build Status](https://github.com/igoramadas/bitecache/actions/workflows/build.yml/badge.svg)](https://github.com/igoramadas/bitecache/actions)
 
 A tiny, in-memory cache manager that won't bite you :-)
 
