@@ -13,10 +13,10 @@ describe("Bitecache Tests", function () {
     it("Setup other collections", function () {
         bitecache.setup("test-another", 1)
         bitecache.setup("test-complex", 60)
+        bitecache.setup("test-long-expire", 99999)
     })
 
     it("Wait for expiration of items on test-another", function (done) {
-        this.timeout(3000)
         bitecache.set("test-another", "expire1", 1)
         bitecache.set("test-another", "expire2", 2)
 
@@ -67,7 +67,7 @@ describe("Bitecache Tests", function () {
         }
     })
 
-    it("First item should have expired", function (done) {
+    it("First item should have expired by now", function (done) {
         const checkFirst = () => {
             const first = bitecache.get("test", "a")
 
@@ -79,6 +79,21 @@ describe("Bitecache Tests", function () {
         }
 
         setTimeout(checkFirst, 1100)
+    })
+
+    it("Fail to get expired item from long expiry collection", function (done) {
+        const checkExpired = () => {
+            const stillThere = bitecache.get("test-long-expire", "a")
+
+            if (!stillThere) {
+                done()
+            } else {
+                done("Item 'a' should have expired")
+            }
+        }
+
+        bitecache.set("test-long-expire", "a", "still-here", 1)
+        setTimeout(checkExpired, 1100)
     })
 
     it("Add 10 itens to another collection", function () {
@@ -130,12 +145,20 @@ describe("Bitecache Tests", function () {
     })
 
     it("Get size used by cache", function (done) {
+        const a = {a: "a"}
+        const b = {b: "b"}
         bitecache.set("test-complex", "boolean", true)
         bitecache.set("test-complex", "string", "a")
         bitecache.set("test-complex", "number", 123)
         bitecache.set("test-complex", "date", new Date())
         bitecache.set("test-complex", "array", ["1", 1, null])
-        bitecache.set("test-complex", "defaultExpires", {}, -1)
+        bitecache.set("test-complex", "obj", {
+            a: a,
+            b: b,
+            level0: {
+                a: b
+            }
+        })
 
         const memsize = bitecache.totalMemSize
         if (memsize > 150) {
