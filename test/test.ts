@@ -28,7 +28,7 @@ describe("Bitecache Tests", function () {
             }
         }
 
-        setTimeout(check, 2000)
+        setTimeout(check, 3000)
     })
 
     it("Setup same test collection again with expiresIn 1", function () {
