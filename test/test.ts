@@ -4,9 +4,6 @@ import {describe, it} from "mocha"
 require("chai").should()
 
 describe("Bitecache Tests", function () {
-    let logger = require("anyhow")
-    logger.setup("none")
-
     let bitecache = require("../src/index")
 
     it("Setup a collection with invalid expiresIn", function () {
@@ -166,10 +163,6 @@ describe("Bitecache Tests", function () {
         bitecache.stats("test-complex")
     })
 
-    it("Clear all", function () {
-        bitecache.clear()
-    })
-
     it("Throw error when calling methods on invalid collection", function (done) {
         try {
             bitecache.set("invalid")
@@ -266,5 +259,19 @@ describe("Bitecache Tests", function () {
         }
 
         done()
+    })
+
+    it("Setup a second instance which should have the same data", function (done) {
+        let bitecache2 = require("../src/index")
+
+        if (bitecache2.totalSize == 0) {
+            done("Second instance should have the data from the first one")
+        } else {
+            done()
+        }
+    })
+
+    it("Clear all", function () {
+        bitecache.clear()
     })
 })
