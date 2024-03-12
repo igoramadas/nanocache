@@ -1,5 +1,9 @@
 # Changelog for Bitecache
 
+1.3.2
+=====
+* Updated dependencies.
+
 1.3.1
 =====
 * Code refactoring.
