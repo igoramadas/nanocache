@@ -16,7 +16,7 @@ class Bitecache {
     /**
      * Main holder of cached objects.
      */
-    private store: any = {}
+    readonly store: any = {}
 
     /**
      * Total cache size.

@@ -57,6 +57,14 @@ describe("Bitecache Tests", function () {
         bitecache.set("test", "b", "Second", 10)
     })
 
+    it("Access the store directly", function (done) {
+        if (bitecache.store?.test?.items?.b.data == "Second") {
+            done()
+        } else {
+            done("Failed to access item b from store test (created on last step)")
+        }
+    })
+
     it("Get second added item", function (done) {
         const second = bitecache.get("test", "b")
 

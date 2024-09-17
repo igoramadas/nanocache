@@ -1,5 +1,10 @@
 # Changelog for Bitecache
 
+1.3.3
+=====
+* The store is now accessible from outside (flagged as readonly).
+* Updated dependencies.
+
 1.3.2
 =====
 * Updated dependencies.
